@@ -44,7 +44,7 @@ Multivectors are stored as arrays of coefficients, indexed by the blade's bit pa
 Each blade is uniquely identified by its index, with each bit representing the presence (1) or absence (0) of a basis vector.
 
 ## Main API
-- `Algebra.Set(int p, int q, int r)` - Set algebra signature
+- `Algebra.Set(byte p, byte q, byte r)` - Set algebra signature
 - `Multivector(params double[] coefficients)` - Create a multivector
 - `Multivector.CreateBaseBlade(int index)` - Create a basis blade
 - `GradeProjection(int k)` - Extract homogeneous part of grade $k$

@@ -2,9 +2,9 @@
 {
     public static class Algebra
     {
-        public static int P { get; private set; }
-        public static int Q { get; private set; }
-        public static int R { get; private set; }
+        public static byte P { get; private set; }
+        public static byte Q { get; private set; }
+        public static byte R { get; private set; }
         public static int N { get; private set; }
         public static int Dimension { get; private set; }
 
@@ -13,7 +13,7 @@
         // Stores the sign of the geometric product between blade i and blade j
         private static int[,] _geometricProductSigns;
 
-        public static void Set(int p, int q, int r)
+        public static void Set(byte p, byte q, byte r)
         {
             P = p; // Vectors with e² = +1 (spatial)
             Q = q; // Vectors with e² = -1 (temporal)
