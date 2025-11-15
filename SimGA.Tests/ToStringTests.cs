@@ -1,6 +1,6 @@
 ﻿namespace SimGA.Tests
 {
-    public class ToStringTests
+    public sealed class ToStringTests
     {
         [Fact]
         public void ToString_ZeroMultivector_ReturnsZero()

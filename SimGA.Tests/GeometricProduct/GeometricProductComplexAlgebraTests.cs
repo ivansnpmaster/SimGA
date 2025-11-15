@@ -1,6 +1,6 @@
 ﻿namespace SimGA.Tests.GeometricProduct
 {
-    public class GeometricProductComplexAlgebraTests
+    public sealed class GeometricProductComplexAlgebraTests
     {
         public GeometricProductComplexAlgebraTests() => Algebra.Set(0, 2, 0);
 

@@ -1,6 +1,6 @@
 namespace SimGA.Tests.GeometricProduct
 {
-    public class GeometricProductQuaternionAlgebraTests
+    public sealed class GeometricProductQuaternionAlgebraTests
     {
         // Quaternions correspond to the even subalgebra: scalars + bivectors
         public GeometricProductQuaternionAlgebraTests() => Algebra.Set(0, 3, 0);

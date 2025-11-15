@@ -1,6 +1,6 @@
 ﻿namespace SimGA.Tests.WedgeProduct
 {
-    public class WedgeProductEuclidean2DAlgebraTests
+    public sealed class WedgeProductEuclidean2DAlgebraTests
     {
         public WedgeProductEuclidean2DAlgebraTests() => Algebra.Set(2, 0, 0);
 
