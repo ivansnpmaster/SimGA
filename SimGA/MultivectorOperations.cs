@@ -99,6 +99,45 @@
             return new Multivector(resultCoefficients);
         }
 
+        /// <summary>
+        /// Inner product of multivectors
+        /// </summary>
+        public static Multivector operator |(Multivector a, Multivector b)
+        {
+            var resultCoefficients = new double[Algebra.Dimension];
+
+            /*
+                The inner product is the lowest grade part of the geometric product. It represents contraction.
+                A | B = <AB>_|r-s|  where r = grade(A), s = grade(B)
+            */
+
+            for (int i = 0; i < Algebra.Dimension; i++)
+            {
+                if (a[i] == 0.0) continue;
+
+                for (int j = 0; j < Algebra.Dimension; j++)
+                {
+                    if (b[j] == 0.0) continue;
+
+                    int gradeA = BladeGrade(i);
+                    int gradeB = BladeGrade(j);
+                    int targetGrade = Math.Abs(gradeA - gradeB);
+
+                    // Calculate the resulting blade
+                    int resultBlade = Algebra.GetGeometricProductMask(i, j);
+                    
+                    // Check if the resulting blade has the expected grade
+                    if (BladeGrade(resultBlade) == targetGrade)
+                    {
+                        double sign = Algebra.GetGeometricProductSign(i, j);
+                        resultCoefficients[resultBlade] += sign * a[i] * b[j];
+                    }
+                }
+            }
+
+            return new Multivector(resultCoefficients);
+        }
+
         public static Multivector operator +(Multivector a, Multivector b)
         {
             var result = new double[Algebra.Dimension];
