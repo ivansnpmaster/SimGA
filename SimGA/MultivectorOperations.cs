@@ -10,12 +10,12 @@
             var resultCoefficients = new double[Algebra.Dimension];
 
             /*
-                O produto geométrico entre dois multivetores é calculado como a soma dos produtos geométricos de todas as combinações de suas componentes. 
-                    C = A * B = Σᵢ Σⱼ (aᵢ * bⱼ) * (bladeᵢ * bladeⱼ)
-                Onde:
-                    - aᵢ, bⱼ são coeficientes escalares
-                    - bladeᵢ * bladeⱼ é o produto geométrico entre as blades
-                O resultado é acumulado no blade apropriado com o sinal correto.
+                The geometric product between two multivectors is calculated as the sum of the geometric products of all combinations of their components. 
+                    C = A * B = Σ_i Σ_j (a_i * b_j) * (blade_i * blade_j)
+                Where:
+                    - a_i, b_j are scalar coefficients
+                    - blade_i * blade_j is the geometric product between the blades
+                The result is accumulated in the appropriate blade with the correct sign.
             */
 
             for (int i = 0; i < Algebra.Dimension; i++)
@@ -27,27 +27,27 @@
                     if (b[j] == 0.0) continue;
 
                     /*
-                        A blade resultante do produto geométrico é dada pelo XOR das máscaras.
-                        A operação XOR (^) entre os índices das blades nos diz qual blade resulta:
-                            - Bits que estão em AMBOS os operandos são zerados (contração)
-                            - Bits que estão em APENAS UM operando são mantidos
+                        The resulting blade of the geometric product is given by the XOR of the masks.
+                        The XOR (^) operation between the blade indices tells us which blade results:
+                            - Bits that are in BOTH operands are zeroed (contraction)
+                            - Bits that are in ONLY ONE operand are kept
 
-                        Exemplo:
+                        Example:
                             i = 3 (011 = e1e2), j = 5 (101 = e1e3)
                             011 ^ 101 = 110 (e2e3)
                     */
                     int resultBlade = Algebra.GetGeometricProductMask(i, j);
 
                     /*
-                        O sinal do produto geométrico já foi pré-calculado durante a inicialização.
-                        O sinal considera:
-                            1. A métrica dos vetores (P, Q, R)
-                            2. A ordem dos vetores (não-comutatividade)
+                        The sign of the geometric product has already been precomputed during initialization.
+                        The sign considers:
+                            1. The metric of the vectors (P, Q, R)
+                            2. The order of the vectors (non-commutativity)
                     */
                     double sign = Algebra.GetGeometricProductSign(i, j);
 
-                    // A contribuição deste par específico (blade i de A * blade j de B) para
-                    // o resultado final é: sinal * coeficienteA * coeficienteB
+                    // The contribution of this specific pair (blade i of A * blade j of B) to
+                    // the final result is: sign * coefficientA * coefficientB
                     resultCoefficients[resultBlade] += sign * a[i] * b[j];
                 }
             }
@@ -63,12 +63,12 @@
             var resultCoefficients = new double[Algebra.Dimension];
 
             /*
-                O produto wedge (produto exterior) entre duas blades é zero se elas compartilharem qualquer vetor base. Caso contrário, é igual ao produto geométrico.
+                The wedge product (exterior product) between two blades is zero if they share any basis vector. Otherwise, it is equal to the geometric product.
 
-                Propriedades:
-                - Anti-comutativo: A ^ B = -B ^ A
-                - Nilpotente: A ^ A = 0
-                - Associativo: (A ^ B) ^ C = A ^ (B ^ C)
+                Properties:
+                - Anti-commutative: A ^ B = -B ^ A
+                - Nilpotent: A ^ A = 0
+                - Associative: (A ^ B) ^ C = A ^ (B ^ C)
             */
 
             for (int i = 0; i < Algebra.Dimension; i++)
@@ -80,16 +80,16 @@
                     if (b[j] == 0.0) continue;
 
                     /*
-                        Verifica se as blades compartilham vetores base
-                        Se (i & j) != 0, elas compartilham pelo menos um vetor base
-                        Nesse caso, o produto wedge é zero
+                        Checks if the blades share basis vectors
+                        If (i & j) != 0, they share at least one basis vector
+                        In this case, the wedge product is zero
                     */
                     if ((i & j) != 0)
                     {
                         continue;
                     }
 
-                    // Para blades sem vetores em comum, o produto wedge é igual ao produto geométrico
+                    // For blades without common vectors, the wedge product is equal to the geometric product
                     int resultBlade = Algebra.GetGeometricProductMask(i, j);
                     double sign = Algebra.GetGeometricProductSign(i, j);
                     resultCoefficients[resultBlade] += sign * a[i] * b[j];
@@ -180,7 +180,7 @@
 
         public override int GetHashCode()
         {
-            // Combina todos os coeficientes em uma sequência determinística
+            // Combines all coefficients into a deterministic sequence
             var hash = new HashCode();
 
             for (int i = 0; i < Algebra.Dimension; i++)
