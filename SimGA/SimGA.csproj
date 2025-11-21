@@ -11,6 +11,11 @@
     <Description>A simple Geometric Algebra library for .NET.</Description>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/ivansnpmaster/SimGA</RepositoryUrl>
+    <PackageReadmeFile>Readme.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\Readme.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 
 </Project>
