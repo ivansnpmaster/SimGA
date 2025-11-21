@@ -1,11 +1,29 @@
 ﻿namespace SimGA
 {
+    /// <summary>
+    /// Static class that defines the Geometric Algebra signature and precomputes product tables.
+    /// </summary>
     public static class Algebra
     {
+        /// <summary>
+        /// Number of basis vectors with positive square (+1).
+        /// </summary>
         public static byte P { get; private set; }
+        /// <summary>
+        /// Number of basis vectors with negative square (-1).
+        /// </summary>
         public static byte Q { get; private set; }
+        /// <summary>
+        /// Number of basis vectors with zero square (0).
+        /// </summary>
         public static byte R { get; private set; }
+        /// <summary>
+        /// Total number of basis vectors (P + Q + R).
+        /// </summary>
         public static int N { get; private set; }
+        /// <summary>
+        /// The dimension of the algebra (2^N).
+        /// </summary>
         public static int Dimension { get; private set; }
 
         // Stores the XOR operation between blade i and blade j (resulting blade mask)
@@ -13,6 +31,13 @@
         // Stores the sign of the geometric product between blade i and blade j
         private static int[,] _geometricProductSigns;
 
+        /// <summary>
+        /// Initializes the algebra with the specified signature (p, q, r).
+        /// This method must be called before creating any multivectors.
+        /// </summary>
+        /// <param name="p">Number of basis vectors with +1 square.</param>
+        /// <param name="q">Number of basis vectors with -1 square.</param>
+        /// <param name="r">Number of basis vectors with 0 square.</param>
         public static void Set(byte p, byte q, byte r)
         {
             P = p; // Vectors with e² = +1 (spatial)
@@ -151,7 +176,19 @@
             return 0;
         }
 
+        /// <summary>
+        /// Gets the mask representing the resulting blade of a geometric product between two blades.
+        /// </summary>
+        /// <param name="bladeA">The index of the first blade.</param>
+        /// <param name="bladeB">The index of the second blade.</param>
+        /// <returns>The index of the resulting blade (XOR of inputs).</returns>
         public static int GetGeometricProductMask(int bladeA, int bladeB) => _geometricProductMasks[bladeA, bladeB];
+        /// <summary>
+        /// Gets the sign of the geometric product between two blades.
+        /// </summary>
+        /// <param name="bladeA">The index of the first blade.</param>
+        /// <param name="bladeB">The index of the second blade.</param>
+        /// <returns>The sign (+1, -1 or 0) of the product.</returns>
         public static int GetGeometricProductSign(int bladeA, int bladeB) => _geometricProductSigns[bladeA, bladeB];
     }
 }

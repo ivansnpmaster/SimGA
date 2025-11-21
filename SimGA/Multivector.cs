@@ -1,5 +1,9 @@
 ﻿namespace SimGA
 {
+    /// <summary>
+    /// Represents a multivector in Geometric Algebra.
+    /// A multivector is a linear combination of blades (scalars, vectors, bivectors, etc.).
+    /// </summary>
     public partial class Multivector
     {
         /*
@@ -23,6 +27,15 @@
         */
         private readonly double[] _coefficients;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Multivector"/> class with the specified coefficients.
+        /// </summary>
+        /// <param name="coefficients">
+        /// An array of coefficients corresponding to the blades of the algebra.
+        /// The size must be less than or equal to the algebra's dimension (2^N).
+        /// If smaller, the remaining coefficients are initialized to zero.
+        /// </param>
+        /// <exception cref="ArgumentException">Thrown when the number of coefficients exceeds the algebra's dimension.</exception>
         public Multivector(params double[] coefficients)
         {
             // Perfect case: array of exact size
@@ -46,8 +59,18 @@
             }
         }
 
+        /// <summary>
+        /// Gets the coefficient of the blade at the specified index.
+        /// </summary>
+        /// <param name="bladeIndex">The integer index of the blade (binary representation).</param>
+        /// <returns>The coefficient of the blade.</returns>
         public double this[int bladeIndex] => _coefficients[bladeIndex];
 
+        /// <summary>
+        /// Creates a multivector representing a single basis blade.
+        /// </summary>
+        /// <param name="bladeIndex">The index of the blade to create.</param>
+        /// <returns>A new multivector with only the specified blade having a coefficient of 1.0.</returns>
         public static Multivector CreateBaseBlade(int bladeIndex)
         {
             var coefficients = new double[Algebra.Dimension];
@@ -73,6 +96,11 @@
             return c;
         }
 
+        /// <summary>
+        /// Projects the multivector onto a specific grade (k-vector).
+        /// </summary>
+        /// <param name="k">The grade to project onto (0 for scalar, 1 for vector, etc.).</param>
+        /// <returns>A new multivector containing only the components of grade k.</returns>
         public Multivector GradeProjection(int k)
         {
             // Returns the homogeneous part of grade 'k' of the multivector
@@ -91,6 +119,9 @@
             return new Multivector(res);
         }
 
+        /// <summary>
+        /// Returns a string representation of the multivector.
+        /// </summary>
         public override string ToString()
         {
             var parts = new List<string>();
@@ -144,6 +175,10 @@
             return "e" + string.Join("", vectors);
         }
 
+        /// <summary>
+        /// Determines whether the multivector is a scalar (grade 0).
+        /// </summary>
+        /// <returns><c>true</c> if the multivector has only a scalar component; otherwise, <c>false</c>.</returns>
         public bool IsScalar()
         {
             for (int i = 1; i < Algebra.Dimension; i++)
@@ -157,6 +192,11 @@
             return true;
         }
 
+        /// <summary>
+        /// Determines whether the multivector is zero (all coefficients are zero).
+        /// </summary>
+        /// <param name="tolerance">The tolerance for floating-point comparisons. Defaults to 0.0.</param>
+        /// <returns><c>true</c> if the multivector is effectively zero; otherwise, <c>false</c>.</returns>
         public bool IsZero(double tolerance = 0.0)
         {
             if (tolerance == 0.0)

@@ -1,9 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageId>SimGA</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>@ivansnpmaster</Authors>
+    <Description>A simple Geometric Algebra library for .NET.</Description>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/ivansnpmaster/SimGA</RepositoryUrl>
   </PropertyGroup>
 
 </Project>

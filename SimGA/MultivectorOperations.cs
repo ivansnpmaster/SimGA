@@ -3,8 +3,11 @@
     public partial class Multivector
     {
         /// <summary>
-        /// Geometric product of multivectors
+        /// Computes the geometric product of two multivectors.
         /// </summary>
+        /// <param name="a">The left operand.</param>
+        /// <param name="b">The right operand.</param>
+        /// <returns>The result of the geometric product A * B.</returns>
         public static Multivector operator *(Multivector a, Multivector b)
         {
             var resultCoefficients = new double[Algebra.Dimension];
@@ -56,8 +59,11 @@
         }
 
         /// <summary>
-        /// Wedge product (exterior product) of multivectors
+        /// Computes the wedge product (exterior product) of two multivectors.
         /// </summary>
+        /// <param name="a">The left operand.</param>
+        /// <param name="b">The right operand.</param>
+        /// <returns>The result of the wedge product A ^ B.</returns>
         public static Multivector operator ^(Multivector a, Multivector b)
         {
             var resultCoefficients = new double[Algebra.Dimension];
@@ -100,8 +106,11 @@
         }
 
         /// <summary>
-        /// Inner product of multivectors
+        /// Computes the inner product (contraction) of two multivectors.
         /// </summary>
+        /// <param name="a">The left operand.</param>
+        /// <param name="b">The right operand.</param>
+        /// <returns>The result of the inner product A | B.</returns>
         public static Multivector operator |(Multivector a, Multivector b)
         {
             var resultCoefficients = new double[Algebra.Dimension];
@@ -138,6 +147,12 @@
             return new Multivector(resultCoefficients);
         }
 
+        /// <summary>
+        /// Adds two multivectors.
+        /// </summary>
+        /// <param name="a">The first multivector.</param>
+        /// <param name="b">The second multivector.</param>
+        /// <returns>The sum of the two multivectors.</returns>
         public static Multivector operator +(Multivector a, Multivector b)
         {
             var result = new double[Algebra.Dimension];
@@ -150,6 +165,11 @@
             return new Multivector(result);
         }
 
+        /// <summary>
+        /// Negates a multivector.
+        /// </summary>
+        /// <param name="a">The multivector to negate.</param>
+        /// <returns>A new multivector with all coefficients negated.</returns>
         public static Multivector operator -(Multivector a)
         {
             var result = new double[Algebra.Dimension];
@@ -162,6 +182,12 @@
             return new Multivector(result);
         }
 
+        /// <summary>
+        /// Subtracts one multivector from another.
+        /// </summary>
+        /// <param name="a">The multivector to subtract from (minuend).</param>
+        /// <param name="b">The multivector to subtract (subtrahend).</param>
+        /// <returns>The difference A - B.</returns>
         public static Multivector operator -(Multivector a, Multivector b)
         {
             var result = new double[Algebra.Dimension];
@@ -174,6 +200,12 @@
             return new Multivector(result);
         }
 
+        /// <summary>
+        /// Multiplies a scalar by a multivector.
+        /// </summary>
+        /// <param name="scalar">The scalar value.</param>
+        /// <param name="other">The multivector.</param>
+        /// <returns>The result of the scalar multiplication.</returns>
         public static Multivector operator *(double scalar, Multivector other)
         {
             var result = new double[Algebra.Dimension];
@@ -186,12 +218,35 @@
             return new Multivector(result);
         }
 
+        /// <summary>
+        /// Multiplies a multivector by a scalar.
+        /// </summary>
+        /// <param name="mv">The multivector.</param>
+        /// <param name="scalar">The scalar value.</param>
+        /// <returns>The result of the scalar multiplication.</returns>
         public static Multivector operator *(Multivector mv, double scalar) => scalar * mv;
 
+        /// <summary>
+        /// Determines whether two multivectors are equal.
+        /// </summary>
+        /// <param name="left">The first multivector.</param>
+        /// <param name="right">The second multivector.</param>
+        /// <returns><c>true</c> if the multivectors are equal; otherwise, <c>false</c>.</returns>
         public static bool operator ==(Multivector? left, Multivector? right) => Equals(left, right);
 
+        /// <summary>
+        /// Determines whether two multivectors are not equal.
+        /// </summary>
+        /// <param name="left">The first multivector.</param>
+        /// <param name="right">The second multivector.</param>
+        /// <returns><c>true</c> if the multivectors are not equal; otherwise, <c>false</c>.</returns>
         public static bool operator !=(Multivector? left, Multivector? right) => !Equals(left, right);
 
+        /// <summary>
+        /// Determines whether the specified object is equal to the current multivector.
+        /// </summary>
+        /// <param name="obj">The object to compare with the current multivector.</param>
+        /// <returns><c>true</c> if the specified object is equal to the current multivector; otherwise, <c>false</c>.</returns>
         public override bool Equals(object? obj)
         {
             if (ReferenceEquals(this, obj))
@@ -217,6 +272,10 @@
             return true;
         }
 
+        /// <summary>
+        /// Serves as the default hash function.
+        /// </summary>
+        /// <returns>A hash code for the current multivector.</returns>
         public override int GetHashCode()
         {
             // Combines all coefficients into a deterministic sequence
